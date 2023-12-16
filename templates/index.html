@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +13,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-{% extends "base.html" %}
 {% block content %}
 <header class="container">
   Holística
@@ -19,33 +20,41 @@
       init
         set :current to {{current_slide}}
         set :counter to 0
-        log :current
+        send play
+      end
+      on play
+        send changeSlide(index:0)
         send timer
       end
-      on timer
-        log 'timer'
+      on timer queue last
         increment :counter
-        set @value of <.active progress/> to counter
-        if :counter >= 10
-          send nextSlide()
+        set @value of <.active progress/> to :counter
         wait 100ms
+        if :counter >= 100 send nextSlide() end
         send timer
       end
       on nextSlide
         send changeSlide(index:(:current + 1) mod {{slides | length }})
       end
       on changeSlide(index)
-        take .active from .slide for <.slide:nth-child(${index+1})/>
+        set nextSlide to first from <.slide:nth-child(${index+1})/>
         set :current to index
         set :counter to 0
-      end">
+        take .active from .slide for nextSlide
+        async htmx.ajax('get', nextSlide's @data-src, '#page-detail')
+      end"
+    >
     <div>
       {% for slide in slides %}
-      <button class="slide" hx-get="/services/{{slide.id}}" _="on click send changeSlide(index: {{loop.index0}})">
+      <button
+        class="slide"
+        data-src="/services/{{slide.id}}"
+        _="on click send changeSlide(index: {{loop.index0}})"
+      >
         <p>{{ slide.title }}</p>
         <div class="slide-info">
           <div class="description">{{slide.description}}</div>
-          <progress value="0" max="40" _=""></progress>
+          <progress value="0" max="100"></progress>
         </div>
       </button>
       {% endfor %}

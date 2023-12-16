@@ -1,0 +1,21 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "a",
+      "command": "poetry install"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "DEBUG=True poetry run uvicorn app:app --reload": {
+      "name": "DEBUG=True poetry run uvicorn app:app --reload",
+      "command": "DEBUG=True poetry run uvicorn app:app --reload",
+      "runAtStart": true,
+      "preview": {
+        "port": 8000
+      }
+    }
+  }
+}
