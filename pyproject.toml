@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "site"
+version = "0.1.0"
+description = ""
+authors = ["Rodrigo Carranza <rodrigocarranza@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = { extras = ["all"], version = "^0.105.0" }
+jinja2-fragments = "^1.2.1"
+arel = "^0.2.0"
+fastapi-debug-toolbar = "^0.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

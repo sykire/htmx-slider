@@ -1,0 +1,15 @@
+:root {
+    /* Mode-1: Mode 1 */
+
+    /* Collection: VARIABLE COLLECTION */
+    --WHITE: rgba(255,255,255,1.00);
+    --BLACK: rgba(0,0,0,1.00);
+    --Main-Paper: rgba(77,59,134,1.00);
+    --Main: rgba(74,33,194,1.00);
+    --Main-Middle: rgba(49,34,95,1.00);
+    --Main-Dark: rgba(34,26,55,1.00);
+    --Accent-Light: rgba(225,222,201,1.00);
+    --Accent: rgba(234,222,90,1.00);
+    --Accent-Dark: rgba(154,149,93,1.00);
+    --Main-rare: rgba(86,51,187,1.00);
+}

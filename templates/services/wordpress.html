@@ -1,0 +1,28 @@
+{% if is_full_page %}
+{% extends "base.html" %}
+{% block content %}
+Full page
+{% endblock %}
+{% else %}
+{% block slider %}
+<p>
+    We build your optimized Wordpress site, with installed plugins and curated
+    themes.
+</p>
+<ul>
+    <li>Powerful WordPress website</li>
+    <li>5 plugins installations</li>
+    <li>3 carefully curated free themes</li>
+    <li>Theme installation and configuration</li>
+    <li>Social media icons</li>
+</ul>
+<ul>
+    <li>Cache policy</li>
+    <li>Optimized and scaled images</li>
+    <li>Reduced server response time</li>
+    <li>Database optimization</li>
+</ul>
+<h2>Optimized performance</h2>
+<hr />
+{% endblock %}
+{% endif %}

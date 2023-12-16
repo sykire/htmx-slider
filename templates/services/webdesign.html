@@ -1,0 +1,12 @@
+{% if is_full_page %}
+{% extends "base.html" %}
+{% block content %}
+Full page
+{% endblock %}
+{% else %}
+{% block slider %}
+<p>
+    We implement your web design
+</p>
+{% endblock %}
+{% endif %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/public/global.css">
+  <script src="https://unpkg.com/htmx.org@1.9.9" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+{% extends "base.html" %}
+{% block content %}
+<header class="container">
+  Holística
+  <nav hx-target="#page-detail" class="nav" _="
+      init
+        set :current to {{current_slide}}
+        set :counter to 0
+        log :current
+        send timer
+      end
+      on timer
+        log 'timer'
+        increment :counter
+        set @value of <.active progress/> to counter
+        if :counter >= 10
+          send nextSlide()
+        wait 100ms
+        send timer
+      end
+      on nextSlide
+        send changeSlide(index:(:current + 1) mod {{slides | length }})
+      end
+      on changeSlide(index)
+        take .active from .slide for <.slide:nth-child(${index+1})/>
+        set :current to index
+        set :counter to 0
+      end">
+    <div>
+      {% for slide in slides %}
+      <button class="slide" hx-get="/services/{{slide.id}}" _="on click send changeSlide(index: {{loop.index0}})">
+        <p>{{ slide.title }}</p>
+        <div class="slide-info">
+          <div class="description">{{slide.description}}</div>
+          <progress value="0" max="40" _=""></progress>
+        </div>
+      </button>
+      {% endfor %}
+    </div>
+  </nav>
+</header>
+<main class="container">
+  <article id="page-detail"></article>
+</main>
+<footer class="container">Footer</footer>
+<style>
+  .nav .active {
+    font-weight: 800;
+  }
+
+  .slide:not(.active) .slide-info {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+</html>
